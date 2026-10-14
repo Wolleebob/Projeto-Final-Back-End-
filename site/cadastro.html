@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <title>Cadastro</title>
+</head>
+<body>
+     <!-- CABEÇALHO FULL-WIDTH -->
+  <header class="header-full">
+    <!-- LOGO -->
+    <div class="logo-sorveteria">
+      <i class="fas fa-ice-cream"></i>
+      <h2>Gelato &amp; Cia</h2>
+      <span>🍦</span>
+    </div>
+
+    <!-- NAVEGAÇÃO (estoque, carrinho, login) -->
+    <nav class="nav-links">
+      <a href="produtos.html"><i class="fas fa-boxes"></i> Estoque</a>
+      <a href="carrinho.html"><i class="fas fa-shopping-cart"></i> Carrinho</a>
+      <a href="login.html" class="active"><i class="fas fa-user"></i> Login</a>
+    </nav>
+  </header>
+    <main class="main-content">
+        <div class="login-card">
+            <!-- Título do formulário -->
+            <div class="form-title">
+              <i class="fas fa-lock"></i> Cadastre sua Conta
+            </div>
+        <form id = "form_cadastro"> 
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" placeholder="Digite seu nome" required class="input-texto">
+        <label for="celular">Celular:</label>
+        <input type="tel" id="celular" placeholder="(42) 99999-99999" required class="input-texto">
+        <label for="cpf">CPF:</label>
+        <input type="tel" id="cpf" placeholder="123.456.789-00" required class="input-texto">
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="email@gmail.com" required class="input-texto">
+        <label for = "senha">Senha:</label>
+        <input type="password" id= senha required class = "input-texto">
+
+        <!--
+        <label for="cep">CEP:</label>
+        <input type="text" id="cep" onblur="pesquisarCep()" placeholder="12345-678" required class="input-texto">
+         <p id = "erro"></p>
+        <label for="rua">Rua:</label>
+        <input type="text" id="rua" placeholder="Digite sua rua" required class="input-texto">
+        <label for="numero">Número:</label>
+        <input type="text" id="numero" placeholder="Digite o número" required class="input-texto">
+        <label for="bairro">Bairro:</label>
+        <input type="text" id="bairro" placeholder="Digite seu bairro" required class="input-texto">
+        <label for="cidade">Cidade:</label>
+        <input type="text" id="cidade" placeholder="Digite sua cidade" required class="input-texto">
+        <label for="uf">UF:</label>
+        <input type="text" id="estado" placeholder="Ex: PR" maxlength="2" required class="input-texto">
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" placeholder="Digite sua senha" required class="input-texto">
+        -->  
+
+
+        <!--
+            CPF, CEP, Rua, Número, Bairro, Cidade, UF, Senha
+        -->
+
+
+
+        <input type="submit" id ="btn-enviar" value ="Enviar Cadastro" id="btn-enviar" class="btn-enviar">
+    </div>
+    </form>
+   </main>
+   <footer></footer>
+   
+   <script>
+       function pegar_dados(){
+        const dados = {
+            nome: document.getElementById("nome").value,
+            celular: document.getElementById("celular").value,
+            cpf: document.getElementById("cpf").value,
+            email: document.getElementById("email").value,
+            senha: document.getElementById("senha").value           
+        }
+        return dados 
+       }
+       const form = document.getElementById("form_cadastro")
+       const btn_enviar = document.getElementById("btn-enviar")
+       form.addEventListener("submit", async (event) => {
+            event.preventDefault() // evita o carregameto da página
+            btn_enviar.disabled = true 
+            btn_enviar.value = "Enviando..."
+
+            const dados = pegar_dados()
+            try {
+                const resposta = await fetch("http://localhost:3000/cliente",{
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(dados)
+                   }
+            )
+            if(!resposta.ok) throw new Error("Erro na API")
+            alert("Cadastro realizado com sucesso!")
+            form.reset()
+            } catch (error) {
+                alert(error)
+            } finally {
+                btn_enviar.disabled = false
+                btn_enviar.value = "Enviar Cadastro"
+            }
+       })
+   </script>
+</body>
+</html>

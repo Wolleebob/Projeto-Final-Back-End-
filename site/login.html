@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍦 Sorvete & Cia · Login</title>
+  <!-- Google Fonts + Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel = "stylesheet" href = "style.css">
+</head>
+<body>
+
+  <!-- CABEÇALHO FULL-WIDTH -->
+  <header class="header-full">
+    <!-- LOGO -->
+    <div class="logo-sorveteria">
+      <i class="fas fa-ice-cream"></i>
+      <h2>Gelato &amp; Cia</h2>
+      <span>🍦</span>
+    </div>
+
+    <!-- NAVEGAÇÃO (estoque, carrinho, login) -->
+    <nav class="nav-links">
+      <a href="#"><i class="fas fa-boxes"></i> Estoque</a>
+      <a href="#"><i class="fas fa-shopping-cart"></i> Carrinho</a>
+      <a href="#" class="active" id="nav_login"><i class="fas fa-user"></i> Login</a>
+    </nav>
+  </header>
+
+  <!-- CONTEÚDO PRINCIPAL (login centralizado) -->
+  <main class="main-content">
+    <div class="login-card">
+      <!-- Título do formulário -->
+      <div class="form-title">
+        <i class="fas fa-lock"></i> Acesse sua conta
+      </div>
+
+      <!-- FORMULÁRIO DE LOGIN -->
+      <form id = "form_login">
+        <label for="email"><i class="fas fa-envelope"></i> E-mail</label>
+        <input type="email" id="email" placeholder="seu@email.com" required class="input-texto">
+
+        <label for="senha"><i class="fas fa-key"></i> Senha</label>
+        <input type="password" id="senha" placeholder="••••••••" required class="input-texto">
+
+        <button type="submit" class="btn_enviar" id = "btn_enviar">
+          <i class="fas fa-arrow-right-to-bracket"></i> Entrar
+        </button>
+      </form>
+      <p>Não possui Cadastro? Cadastra-se <a href="./cadastro.html">clicando aqui</a></p>
+
+      <!-- mensagem doce -->
+      <div class="footer-sorvete">
+        <i class="fas fa-ice-cream"></i> 
+        <span>sabores</span> que derretem o coração 
+        <i class="fas fa-heart" style="color: #e07a5a; font-size: 0.8rem;"></i>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function pegar_dados(){
+     const dados = {
+         email: document.getElementById("email").value,
+         senha: document.getElementById("senha").value           
+     }
+     return dados 
+    }
+    const form = document.getElementById("form_login")
+    const btn_enviar = document.getElementById("btn_enviar")
+    form.addEventListener("submit", async (event) => {
+         event.preventDefault() // evita o carregameto da página
+         btn_enviar.disabled = true 
+         btn_enviar.value = "Enviando..."
+         const dados = pegar_dados()
+         try {
+             const resposta = await fetch("http://localhost:3000/login",{
+                 method: "POST",
+                 headers: { "Content-Type": "application/json" },
+                 body: JSON.stringify(dados)
+             }
+         )
+         const resposta_json = await resposta.json()
+         if(!resposta.ok){
+            if (resposta.status == 500){
+              throw new Error("Erro interno no sistema, entre em contato com o suporte")
+            } else {
+              throw new Error("Erro:" + resposta_json.mensagem)
+            }
+          throw new Error("Erro na API")
+         }
+         localStorage.setItem("nome_cliente", resposta_json.nome)
+                localStorage.setItem("token", resposta_json.token)
+                window.location.href = "produtos.html"
+         } catch (error) {
+             alert(error)
+         } finally {
+             btn_enviar.disabled = false
+             btn_enviar.value = "Enviar Login"
+         }
+    })
+</script>
+
+</body>
+</html>

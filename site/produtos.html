@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gelato & Cia · Nossos Produtos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(145deg, #fde9e0 0%, #fff3e8 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ---- CABEÇALHO ---- */
+    .header-full {
+      width: 100%;
+      background: rgba(255, 245, 235, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 2px solid rgba(214, 122, 90, 0.15);
+      padding: 0.8rem 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-sorveteria { display: flex; align-items: center; gap: 0.6rem; }
+    .logo-sorveteria i { font-size: 2.4rem; color: #d67a5a; filter: drop-shadow(0 4px 10px rgba(214, 122, 90, 0.2)); }
+    .logo-sorveteria h2 {
+      font-weight: 700; font-size: 1.8rem; letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #b8653a, #e09b7a);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .logo-sorveteria span { font-size: 1.4rem; color: #f3c7a2; }
+
+    .nav-links { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; font-weight: 600; font-size: 1.05rem; color: #4a2c1b;
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.5rem 1.2rem; border-radius: 60px; transition: 0.2s;
+    }
+    .nav-links a i { font-size: 1.2rem; color: #b8653a; transition: 0.2s; }
+    .nav-links a:hover { background: #ffded0; transform: translateY(-2px); box-shadow: 0 6px 14px rgba(214, 122, 90, 0.12); }
+    .nav-links a:hover i { color: #9f4e2c; }
+    .nav-links a.active { background: #d67a5a; color: #fff6ed; box-shadow: 0 6px 14px rgba(214, 122, 90, 0.25); }
+    .nav-links a.active i { color: #fff6ed; }
+
+    /* ---- CONTEÚDO ---- */
+    .main-content {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      width: 100%; padding: 2rem 1rem;
+    }
+
+    .form-title {
+      text-align: center; font-weight: 700; font-size: 2.2rem; color: #3f2a1b;
+      margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; gap: 0.8rem;
+    }
+    .form-title i { color: #d67a5a; font-size: 2.2rem; }
+
+    /* ---- FILTROS ---- */
+    .filtros {
+      display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center;
+      margin-bottom: 2rem; width: 100%; max-width: 1200px;
+    }
+    .filtros input, .filtros select {
+      font-family: 'Quicksand', sans-serif;
+      padding: 0.7rem 1.2rem;
+      border-radius: 60px;
+      border: 1px solid rgba(214, 122, 90, 0.3);
+      background: rgba(255, 250, 245, 0.9);
+      font-size: 1rem; color: #3f2a1b; outline: none;
+      transition: 0.2s; font-weight: 500;
+    }
+    .filtros input:focus, .filtros select:focus {
+      border-color: #d67a5a; box-shadow: 0 0 0 4px rgba(214, 122, 90, 0.15);
+    }
+    .filtros button {
+      font-family: 'Quicksand', sans-serif; font-weight: 700; cursor: pointer;
+      padding: 0.7rem 1.4rem; border-radius: 60px; border: none;
+      background: linear-gradient(135deg, #d67a5a, #c06542); color: #fff;
+      box-shadow: 0 8px 18px rgba(214, 122, 90, 0.25); transition: 0.25s;
+    }
+    .filtros button:hover { transform: scale(1.03); }
+
+    /* ---- GRID ---- */
+    .produtos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.8rem; max-width: 1200px; width: 100%; margin: 0 auto;
+    }
+
+    .produto-card {
+      background: rgba(255, 250, 245, 0.7);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      border-radius: 48px 48px 40px 40px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06), 0 8px 20px rgba(0, 0, 0, 0.04);
+      padding: 2rem 1.5rem 2rem;
+      border: 1px solid rgba(255, 240, 230, 0.5);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+    }
+    .produto-card:hover { transform: scale(1.02); box-shadow: 0 28px 48px rgba(214, 122, 90, 0.18); }
+
+    .produto-icone {
+      font-size: 4rem; line-height: 1; margin-bottom: 0.8rem;
+      filter: drop-shadow(0 8px 12px rgba(214, 122, 90, 0.25));
+    }
+
+    .produto-categoria {
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px;
+      text-transform: uppercase; color: #b8653a;
+      background: #ffe6d8; padding: 0.25rem 0.8rem;
+      border-radius: 60px; margin-bottom: 0.6rem;
+    }
+
+    .produto-nome {
+      font-weight: 700; font-size: 1.4rem; color: #3f2a1b;
+      margin-bottom: 0.6rem;
+      display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+    }
+    .produto-nome i { color: #d67a5a; font-size: 1.1rem; }
+
+    .produto-preco {
+      font-weight: 700; font-size: 1.9rem; color: #b8653a;
+      margin: 0.4rem 0 0.8rem;
+      display: flex; align-items: center; justify-content: center; gap: 0.3rem;
+    }
+    .produto-preco span { font-size: 1rem; color: #b28a78; font-weight: 600; }
+
+    .btn_enviar {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #d67a5a, #c06542);
+      border: none; padding: 0.9rem 1.4rem; border-radius: 60px;
+      font-weight: 700; font-size: 1.1rem; color: white; cursor: pointer;
+      transition: 0.25s; display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      box-shadow: 0 8px 18px rgba(214, 122, 90, 0.25);
+      width: 100%; margin-top: 0.6rem;
+    }
+    .btn_enviar i { font-size: 1.2rem; color: #ffeee5; }
+    .btn_enviar:hover { transform: scale(1.02); background: linear-gradient(135deg, #c06542, #a85230); }
+    .btn_enviar:active { transform: scale(0.97); }
+
+    /* ---- PAGINAÇÃO ---- */
+    .paginacao {
+      display: flex; gap: 0.5rem; justify-content: center; align-items: center;
+      margin: 2rem 0 1rem; flex-wrap: wrap;
+    }
+    .paginacao button {
+      font-family: 'Quicksand', sans-serif; font-weight: 700;
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1px solid rgba(214, 122, 90, 0.3);
+      background: rgba(255, 250, 245, 0.9);
+      color: #4a2c1b; cursor: pointer; transition: 0.2s;
+    }
+    .paginacao button:hover:not(:disabled) { background: #ffe6d8; }
+    .paginacao button.ativo {
+      background: #d67a5a; color: #fff; border-color: #d67a5a;
+      box-shadow: 0 6px 14px rgba(214, 122, 90, 0.25);
+    }
+    .paginacao button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* ---- FOOTER ---- */
+    .footer-sorvete {
+      margin-top: 2rem; font-size: 0.9rem; color: #b28a78;
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      font-weight: 500; width: 100%; padding-bottom: 0.5rem;
+    }
+    .footer-sorvete i { color: #d67a5a; font-size: 1rem; }
+    .footer-sorvete span { color: #b8653a; font-weight: 700; }
+
+    /* ---- RESPONSIVO ---- */
+    @media (max-width: 700px) {
+      .header-full { flex-direction: column; gap: 0.5rem; padding: 0.8rem 1rem; }
+      .logo-sorveteria h2 { font-size: 1.5rem; }
+      .nav-links { justify-content: center; width: 100%; }
+      .nav-links a { font-size: 0.9rem; padding: 0.3rem 0.9rem; }
+      .form-title { font-size: 1.8rem; }
+      .produtos-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; }
+      .produto-card { padding: 1.5rem 1.2rem; }
+      .produto-icone { font-size: 3.2rem; }
+      .produto-nome { font-size: 1.2rem; }
+      .produto-preco { font-size: 1.6rem; }
+    }
+    @media (max-width: 480px) {
+      .nav-links a { font-size: 0.8rem; padding: 0.2rem 0.7rem; gap: 0.2rem; }
+      .nav-links a i { font-size: 1rem; }
+      .logo-sorveteria i { font-size: 2rem; }
+      .logo-sorveteria h2 { font-size: 1.3rem; }
+      .form-title { font-size: 1.5rem; flex-wrap: wrap; }
+      .produtos-grid { grid-template-columns: 1fr; max-width: 320px; }
+      .produto-card { border-radius: 36px 36px 32px 32px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header-full">
+    <div class="logo-sorveteria">
+      <i class="fas fa-ice-cream"></i>
+      <h2>Gelato <span>&</span> Cia</h2>
+    </div>
+    <nav class="nav-links">
+      <a href="#" class="active"><i class="fas fa-store"></i> Produtos</a>
+      <a href="#"><i class="fas fa-truck"></i> Pedidos</a>
+      <a href="#"><i class="fas fa-heart"></i> Favoritos</a>
+      <a href="#" id="user-info"><i class="fas fa-user"></i> Conta</a>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <div class="form-title">
+      <i class="fas fa-snowflake"></i>
+      Nossos Sabores
+      <i class="fas fa-snowflake"></i>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filtros">
+      <input type="text" id="busca" placeholder="Buscar por nome..." />
+      <select id="categoria">
+        <option value="">Todas as categorias</option>
+        <option value="Clássico">Clássico</option>
+        <option value="Regional">Regional</option>
+        <option value="Frutado">Frutado</option>
+        <option value="Especial">Especial</option>
+      </select>
+      <select id="ordenacao">
+        <option value="">Sem ordenação</option>
+        <option value="menor preco">Menor preço</option>
+        <option value="maior preco">Maior preço</option>
+      </select>
+      <input type="number" id="preco_min" placeholder="Preço mín." step="0.5" min="0" />
+      <input type="number" id="preco_max" placeholder="Preço máx." step="0.5" min="0" />
+    </div>
+
+    <!-- Grade de produtos (preenchida via JS) -->
+    <div class="produtos-grid" id="produtos-grid"></div>
+
+    <!-- Paginação (preenchida via JS) -->
+    <div class="paginacao" id="paginacao"></div>
+
+    <div class="footer-sorvete">
+      <i class="fas fa-ice-cream"></i>
+      <span>Gelato & Cia</span> · feito com carinho
+      <i class="fas fa-heart" style="color: #d67a5a;"></i>
+    </div>
+  </main>
+
+  <script src="./pages.js"></script>
+</body>
+</html>
